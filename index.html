@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+
+<title>TEST</title>
+
+</head>
+<body>
+<br>
+<h1><div id="output">ここに表示</div></h>
+<br>
+<style type="text/css">
+  <!--
+  #keyboard {
+      width: 100%;
+      position: relative;
+  }
+  .whitekey {
+      width: 5%;
+      height: 240px;
+      text-align: center;
+      display: inline-block;
+      border: 1px solid #000;
+  }
+  .whitekey:hover {
+    background-color: #eee;
+  }
+  
+  .blackkey {
+      width: 4%;
+      height: 140px;
+      display: inline-block;
+      margin-left: -2.5%;
+      background-color: #000;
+      position: absolute;
+  }
+  .blackkey:hover {
+    background-color: #333;
+  }
+  -->
+  </style>
+  <ul id="keyboard">
+     <li data-key="C3" class="whitekey"></li>
+     <li data-key="C#3" class="blackkey"></li> 
+     <li data-key="D3" class="whitekey"></li>
+     <li data-key="D#3" class="blackkey"></li> 
+     <li data-key="E3" class="whitekey"></li>
+     <li data-key="F3" class="whitekey"></li>
+     <li data-key="F#3" class="blackkey"></li>
+     <li data-key="G3" class="whitekey"></li>
+     <li data-key="G#3" class="blackkey"></li>
+     <li data-key="A3" class="whitekey"></li>
+     <li data-key="A#3" class="blackkey"></li>
+     <li data-key="B3" class="whitekey"></li>
+     <li data-key="C4" class="whitekey"></li>
+     <li data-key="C#4" class="blackkey"></li> 
+     <li data-key="D4" class="whitekey"></li>
+     <li data-key="D#4" class="blackkey"></li> 
+     <li data-key="E4" class="whitekey"></li>
+     <li data-key="F4" class="whitekey"></li>
+     <li data-key="F#4" class="blackkey"></li>
+     <li data-key="G4" class="whitekey"></li>
+     <li data-key="G#4" class="blackkey"></li>
+     <li data-key="A4" class="whitekey"></li>
+     <li data-key="A#4" class="blackkey"></li>
+     <li data-key="B4" class="whitekey"></li>
+  
+  </ul>
+  
+  
+  <script src="http://chamu.org/tonejs/Tone.min.js"></script>
+  <script>
+  // ページ読み込み時シンセ生成
+  var synth;
+  window.onload = function(){
+    synth = new Tone.Synth().toMaster();
+  }
+  
+  // マウスを押した時のイベント処理
+  window.addEventListener('mousedown', playSound);
+  window.addEventListener('touchstart', playSound);
+  
+  
+  
+  function playSound(e) {
+    
+    // マウスのdata属性を取得
+    var key = e.target.dataset.key;
+    
+    // keyがundefinedなら処理を実行しない
+    if (typeof key === "undefined") return;  
+    
+    // 音名を代入する
+    //synth.triggerAttackRelease(key, '8n');
+  
+    //音名から勘所への変換（CFC用）
+  
+    var kand = ["0","1","2","3","#","4","5","6","7","8","9","♭","10","11","12","13","1#","14","15","16","17","18","19"];
+    var ito3 = ["C4","C#4","D4","D#4","E4","F4","F#4","G4","G#4", "A4", "A#4", "B4", "C5", "C#5", "D5", "D#5", "E5", "F5", "F#5", "G5","G#5", "A5", "A#5"];
+    var ito2 = ["F3", "F#3", "G3", "G#3", "A3", "A#3", "B3", "C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4", "C5", "C#5", "D5", "D#5"];
+    var ito1 = ["C3", "C#3", "D3", "D#3", "E3", "F3", "F#3", "G3", "G#3", "A3", "A#3", "B3", "C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4"];
+  
+   // alert(key);
+    var posi = 0;
+    var itoNO = 0;
+    //posi = ito3.indexOf(key);
+   // alert(kand[posi]);
+
+    if (ito3.indexOf(key) != -1){ //-1は見つからない場合
+	    itoNO = 3;
+	    posi = ito3.indexOf(key);
+    }else if(ito2.indexOf(key) != -1){
+	    itoNO = 2;
+	    posi = ito2.indexOf(key); 
+    }else if(ito1.indexOf(key) != -1){
+      itoNO = 1;
+      posi = ito1.indexOf(key); 
+    }
+
+
+    document.getElementById("output").innerHTML = itoNO +"の糸" + kand[posi];
+  }
+  
+  </script>
+
+
+
+
+
+
+
+
+</body>
+</html>
